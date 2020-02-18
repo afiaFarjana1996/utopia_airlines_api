@@ -1,0 +1,83 @@
+swagger: '2.0'
+info:
+  description: This api is for registering passengers
+  version: 1.0.0
+  title: Passenger Details API
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+paths:
+  /passengers:
+    get:
+      description: |
+        by passing passenger id we will retrieve passenger information.
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: passenger_id
+        description: pass the passenger id in the path parameter to retrieve passenger information.
+        required: true
+        type: integer
+      responses:
+        200:
+          description: passenger found
+          schema:
+            items:
+              $ref: '#/definitions/Passenger'
+        400:
+          description: bad input parameter
+        500:
+          description: server error
+    post:
+      
+      description: Adds a passenger to the table.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: passenger
+        description: passenger to add
+        schema:
+          $ref: '#/definitions/Passenger'
+      responses:
+        201:
+          description: passenger information insered
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing item already exists
+        500:
+          description: server error
+definitions:
+  Passenger:
+    type: object
+    required:
+    - name
+    - address
+    - phone_number
+    - ticket_number
+    - date_of_birth
+    properties:
+      name:
+        type: string
+      address:
+        type: string
+      phone_number:
+        type: string
+      ticket_number:
+        type: integer
+      date_of_birth:
+        format: date-time
+        example: 2016-08-29T09:12:33.001Z
+    
+  
+host: virtserver.swaggerhub.com
+basePath: /SS_projects/passengerDetails/1.0.0
+schemes:
+ - https
+ - http

@@ -1,0 +1,78 @@
+swagger: '2.0'
+info:
+  description: This is an api to log in users
+  version: 1.0.0
+  title: Login user API
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+paths:
+  /login:
+    post:
+      description: |
+        By passing user name and password in the request body we retrieve user information.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: user_credential
+        description: credentials for authorization
+        schema:
+          items:
+            $ref: '#/definitions/UserCredential'
+        required: true
+        
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/UserDescription'
+        400:
+          description: bad input parameter
+        500:
+          description: server error
+          
+definitions:
+  UserCredential:
+    type: object
+    required:
+    - user_name
+    - password
+    properties:
+      user_name:
+       type: string
+      password:
+       type: string
+       format: password
+       
+  UserDescription:
+    type: object
+    required:
+    - user_name
+    - full_name
+    - role
+    - address
+    - phone_number
+    properties:
+      user_name:
+        type: string
+      full_name:
+        type: string
+      role:
+        type: string
+      address:
+        type: string
+      phone_number:
+        type: string
+     
+host: virtserver.swaggerhub.com
+basePath: /SS_projects/login_user/1.0.0
+schemes:
+ - https
+ - http

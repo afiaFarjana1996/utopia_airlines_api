@@ -1,0 +1,74 @@
+swagger: '2.0'
+info:
+  description: This is an API to register users
+  version: 1.0.0
+  title: user registration API
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+paths:
+  /user_registration:
+    post:
+      description: |
+        By passing in all the field informations, we will create users for the application
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: User
+        description: pass an request body that holds all the fields necessary to create a user.
+        schema:
+          $ref: '#/definitions/User'
+        required: true
+      
+      responses:
+        201:
+          description: User created
+        400:
+          description: bad input parameter
+        500:
+          description: Internal Server Error
+   
+definitions:
+   User:
+    type: object
+    required:
+    - user_id
+    - user_name
+    - password
+    - full_name
+    - role
+    - address
+    - phone_number
+    properties:
+      user_id:
+        type: integer
+        format: number
+        example: 123
+      user_name:
+        type: string
+        example: user1
+      password:
+        type: string
+        format: password
+      full_name:
+        type: string
+      role:
+       type: string
+      address:
+       type: string
+      phone_number:
+       type: string
+   
+
+schemes:
+ - https
+ - http
+
+host: virtserver.swaggerhub.com
+
+basePath: /SS_projects/user_registration/1.0.0
